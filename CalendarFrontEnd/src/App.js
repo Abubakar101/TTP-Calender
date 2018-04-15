@@ -41,30 +41,34 @@ class App extends Component {
   };
 
   // Adding saved data into Database - both information and image
-  addInfo = async (faces, image) => {
-    let face = JSON.stringify(faces);
-    let data = { face, image, favorite: false };
+  // addInfo = async (faces, image) => {
+  //   let face = JSON.stringify(faces);
+  //   let data = { face, image, favorite: false };
 
-    try {
-      await axios.post("/datas", data).then(res => {
-        let parsed = {
-          id: res.data.id,
-          faces: JSON.parse(res.data.face),
-          image: res.data.image,
-          favorite: res.data.favorite
-        };
-        this.setState({ savedData: [...this.state.savedData, parsed] });
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  //   try {
+  //     await axios.post("/datas", data).then(res => {
+  //       let parsed = {
+  //         id: res.data.id,
+  //         faces: JSON.parse(res.data.face),
+  //         image: res.data.image,
+  //         favorite: res.data.favorite
+  //       };
+  //       this.setState({ savedData: [...this.state.savedData, parsed] });
+  //     });
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+
+  submitEventForm = (event) => {
+console.log(event)
+  }
 
   render() {
     return (
       <div className="app">
         <Nav />
-        <View />
+        <View submitEventForm={this.submitEventForm}/>
       </div>
     );
   }
