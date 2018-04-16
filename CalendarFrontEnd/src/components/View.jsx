@@ -14,13 +14,15 @@ class View extends Component {
   }
 
   showEventForm = event => {
-    console.log(event.target.id);
-    console.log(event.target.className === "columns");
+    console.log(event.target.id, event.target.className);
+    // console.log(event.target.className === "columns");
 
     if (event.target.className === "columns") {
       this.setState({ showForm: true });
       $("#top").css("opacity", "0.1");
       $("#bottom").css("opacity", "0.1");
+    } else if (this.state.showForm && event.target.className === "") {
+      this.closeEventForm();
     }
   };
 
@@ -29,7 +31,6 @@ class View extends Component {
     $("#top").css("opacity", "1");
     $("#bottom").css("opacity", "1");
   };
-
 
   viewTemplate = () => {
     return (
@@ -137,7 +138,12 @@ class View extends Component {
             </div>
           </div>
         </div>
-        {this.state.showForm && <Form closeEventForm={this.closeEventForm} submitEventForm={this.props.submitEventForm}/>}
+        {this.state.showForm && (
+          <Form
+            closeEventForm={this.closeEventForm}
+            submitEventForm={this.props.submitEventForm}
+          />
+        )}
       </div>
     );
   };

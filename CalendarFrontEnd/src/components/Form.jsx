@@ -4,13 +4,25 @@ class Form extends Component {
   render() {
     return (
       <div id="addEventForm" className="valign-wrapper row">
-      
-      <div className="col card hoverable s7">
-      <i id="closeForm" className="material-icons right" onClick={e=> this.props.closeEventForm()}>close</i>
-          <form onSubmit={e => {
-            e.preventDefault();
-            this.props.submitEventForm(e)
-            this.props.closeEventForm() }}>
+        <div className="col card hoverable s7">
+          <i
+            id="closeForm"
+            className="material-icons right"
+            onClick={e => this.props.closeEventForm()}
+          >
+            close
+          </i>
+          <form
+            onSubmit={e => {
+              e.preventDefault();
+              this.props.submitEventForm(
+                e.target.startTime.value,
+                e.target.endTime.value,
+                e.target.description.value
+              );
+              this.props.closeEventForm();
+            }}
+          >
             <div className="card-content">
               <span className="card-title">Add Event</span>
 
@@ -29,8 +41,9 @@ class Form extends Component {
                   />
                 </div>
                 <div className="input-field col s6">
-                <i className="material-icons prefix">timer_off</i>
+                  <i className="material-icons prefix">timer_off</i>
                   <input
+                    max="time"
                     type="time"
                     className="addEvent"
                     name="endTime"

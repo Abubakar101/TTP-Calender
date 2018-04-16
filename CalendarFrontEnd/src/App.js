@@ -10,8 +10,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      savedData: [],
-      showForm: false
+      savedData: []
     };
   }
 
@@ -23,52 +22,38 @@ class App extends Component {
   // Getting data from  database
   getDBInfo = async () => {
     try {
-      await axios.get("/datas").then(res => {
-        const parsed = res.data.map(e => {
-          return {
-            id: e.id,
-            faces: JSON.parse(e.face),
-            image: e.image,
-            favorite: e.favorite
-          };
-        });
-
-        this.setState({ savedData: parsed });
+      await axios.get("/events").then(res => {
+        this.setState({ savedData: res.data });
       });
     } catch (error) {
       console.log(error);
     }
   };
 
-  // Adding saved data into Database - both information and image
-  // addInfo = async (faces, image) => {
-  //   let face = JSON.stringify(faces);
-  //   let data = { face, image, favorite: false };
-
-  //   try {
-  //     await axios.post("/datas", data).then(res => {
-  //       let parsed = {
-  //         id: res.data.id,
-  //         faces: JSON.parse(res.data.face),
-  //         image: res.data.image,
-  //         favorite: res.data.favorite
-  //       };
-  //       this.setState({ savedData: [...this.state.savedData, parsed] });
-  //     });
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
-  submitEventForm = (event) => {
-console.log(event)
-  }
+  // Adding saved data into Database
+  submitEventForm = async (startTime, endTime, description) => {
+    console.log(startTime, endTime, description);
+    try {
+      await axios
+        .post("/events", {
+          startTime,
+          endTime,
+          description
+        })
+        .then(res => {
+          this.setState({ savedData: [...this.state.savedData, res.data] });
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   render() {
+    console.log(this.state.savedData);
     return (
       <div className="app">
         <Nav />
-        <View submitEventForm={this.submitEventForm}/>
+        <View submitEventForm={this.submitEventForm} />
       </div>
     );
   }
