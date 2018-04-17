@@ -8,8 +8,7 @@ class View extends Component {
     this.state = {
       showForm: false,
       showDayView: false,
-      dayId: null,
-      dayView: []
+      dayId: null
     };
   }
 
@@ -18,9 +17,6 @@ class View extends Component {
   }
 
   showEventForm = event => {
-    console.log(event.target.id, event.target.className);
-    // console.log(event.target.className === "columns");
-
     if (event.target.className === "columns" && !this.state.showDayView) {
       this.setState({ showForm: true, dayId: event.target.id });
       this.changeOpacity(true);
@@ -84,10 +80,10 @@ class View extends Component {
   // Filling up the columns with events
   appendShortEventsInfo = index => {
     const moreEvents = this.props.savedData[index].length - 3;
-    const savedData = this.props.savedData[index].slice(0, 3);
+    const savedData = [...this.props.savedData[index]].slice(0, 3);
     const dayEvents = savedData.map((e, i) => {
       return (
-        <div id={`${e.dayId}${i}`} key={`${e.dayId}${i}`}>
+        <div id={`${e.dayId}${i}`} key={`${e.dayId}${i}`} onClick={e => this.showDayView(index)}>
           <p className="eventShortInfo">
             {this.convertTime(e.startTime)}
             &nbsp;&nbsp;
@@ -115,23 +111,6 @@ class View extends Component {
     return dayEvents;
   };
 
-  // appendLongEventInfo = index => {
-  //   const savedData = this.props.savedData[index];
-  //   const dayFullEvents = savedData.map((e, i) => {
-  //     return (
-  //       <div id={`${e.dayId}${i}`} key={`${e.dayId}${i}`}>
-  //         <p className="eventLongInfo">
-  //           {this.convertTime(e.startTime)}
-  //           {this.convertTime(e.endTime)}
-  //           <span className="longDescription">{e.description}</span>
-  //         </p>
-  //       </div>
-  //     );
-  //   });
-
-  //   this.setState({ dayView: dayFullEvents });
-  // };
-
   // Creating a random unique IDs
   uniqueID = () =>
     "_" +
@@ -139,8 +118,8 @@ class View extends Component {
       .toString(36)
       .substr(2, 9);
 
-  // Setting state with all same-day events to pass down into another component
-
+  // Passing the day ID to DayView component to show all same-day events in details
+  // Activating the DayView Component
   showDayView = dayId => {
     this.setState({ showDayView: true, dayId });
     this.changeOpacity(true);
@@ -153,7 +132,6 @@ class View extends Component {
 
   // Template Skeleton
   viewTemplate = () => {
-    console.log(this.generateColumn());
     return (
       <div id="container">
         <div id="top">
@@ -186,6 +164,7 @@ class View extends Component {
               closeDayView={this.closeDayView}
               savedData={this.props.savedData}
               dayId={this.state.dayId}
+              convertTime={this.convertTime}
             />
           )}
       </div>
@@ -193,7 +172,6 @@ class View extends Component {
   };
 
   render() {
-    console.log(this.state.dayView);
     return <div>{this.viewTemplate()}</div>;
   }
 }
