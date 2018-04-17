@@ -18,7 +18,8 @@ class Form extends Component {
               this.props.submitEventForm(
                 e.target.startTime.value,
                 e.target.endTime.value,
-                e.target.description.value
+                e.target.description.value,
+                this.props.dayId
               );
               this.props.closeEventForm();
             }}

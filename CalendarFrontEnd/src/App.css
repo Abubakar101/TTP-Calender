@@ -62,31 +62,68 @@
   margin: 5px;
 }
 /* Add event Form */
-#addEventForm{
+#addEventForm {
   position: absolute;
   top: 200px;
   left: 200px;
   z-index: 10;
 }
 
-.hoverable{
+.hoverable {
   width: auto !important;
   margin-left: 0px !important;
   left: auto !important;
   right: auto !important;
 }
-#closeForm{
+#closeForm {
   margin-top: 10px;
   cursor: pointer;
   font-weight: 300;
 }
-#closeForm:hover{
+#closeForm:hover {
   color: #50b2af;
   font-weight: 600;
   text-shadow: 0.8px 0.4px #261b1b;
 }
-.addEvent{
+.addEvent {
   letter-spacing: 5px !important;
   font-size: 30px !important;
   text-align: center !important;
+}
+
+/* Events Short Info*/
+.eventShortInfo {
+  font-size: 12px;
+  font-family: Roboto, Helvetica, Arial, sans-serif;
+  background: whitesmoke;
+  padding: 2px;
+  border-radius: 7px;
+  margin-top: 6px;
+  margin-bottom: 6px;
+}
+
+.shortDescription {
+  font-family: "Black Han Sans", sans-serif;
+  font-weight: bolder;
+}
+
+.moreEvents {
+  text-align: center;
+  font-size: 14px;
+  margin: 6px;
+}
+
+
+.moreEvents:hover {
+  color: rgb(56, 139, 126);
+  text-shadow: 0.8px 0.1px #261b1b;
+  font-size: 16px;
+  transition: all 0.5s ease-in-out;
+  animation: beat 1s linear infinite;
+}
+
+@keyframes beat {
+  50% {
+    opacity: 0;
+  }
 }
