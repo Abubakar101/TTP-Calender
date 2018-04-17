@@ -1,6 +1,24 @@
 import React, { Component } from "react";
 
 class DayView extends Component {
+  convertWeekNames = () => {
+    // Times ((1-3) * 7 )+ 1 to stay on same week name
+    // Starts from Sunday 1st
+    //
+  };
+
+  //  Ordinal numbers indicator
+  addDaySuffix = num => {
+    if (num == 1 && num != 11) {
+      return `${num}st`;
+    } else if (num == 2 && num != 12) {
+      return `${num}nd`;
+    } else if (num == 3 && num != 13) {
+      return `${num}rd`;
+    }
+    return `${num}th`;
+  };
+
   appendLongEventInfo = () => {
     const savedData = [...this.props.savedData[this.props.dayId]];
     return savedData.map((e, i) => {
@@ -39,7 +57,9 @@ class DayView extends Component {
           id={this.props.dayId}
           key={this.props.dayId}
         >
-          <span className="card-title">Tuesday 8th 2018 </span>
+          <span className="card-title">
+            {`${this.addDaySuffix(this.props.dayId)}`}Tuesday 8th 2018{" "}
+          </span>
           {this.appendLongEventInfo()}
         </div>
       </div>
