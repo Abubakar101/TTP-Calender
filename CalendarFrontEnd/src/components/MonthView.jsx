@@ -83,7 +83,11 @@ class View extends Component {
     const savedData = [...this.props.savedData[index]].slice(0, 3);
     const dayEvents = savedData.map((e, i) => {
       return (
-        <div id={`${e.dayId}${i}`} key={`${e.dayId}${i}`} onClick={e => this.showDayView(index)}>
+        <div
+          id={`${e.dayId}${i}`}
+          key={`${e.dayId}${i}`}
+          onClick={e => this.showDayView(index)}
+        >
           <p className="eventShortInfo">
             {this.convertTime(e.startTime)}
             &nbsp;&nbsp;
@@ -130,25 +134,10 @@ class View extends Component {
     this.changeOpacity(false);
   };
 
-  // Template Skeleton
-  viewTemplate = () => {
+  // Render Components
+  renderComponents = () => {
     return (
-      <div id="container">
-        <div id="top">
-          <h1 id="title">February 2018</h1>
-        </div>
-        <div id="bottom">
-          <div id="week">
-            <div className="days">Sun</div>
-            <div className="days">Mon</div>
-            <div className="days">Tue</div>
-            <div className="days">Wed</div>
-            <div className="days">Thu</div>
-            <div className="days">Fri</div>
-            <div className="days">Sat</div>
-          </div>
-          <div className="rows">{this.generateColumn()}</div>
-        </div>
+      <div>
         {/* Form */}
         {this.state.showForm && (
           <Form
@@ -167,6 +156,29 @@ class View extends Component {
               convertTime={this.convertTime}
             />
           )}
+      </div>
+    );
+  };
+  // Month View Template Skeleton
+  viewTemplate = () => {
+    return (
+      <div id="container">
+        <div id="top">
+          <h1 id="title">February 2018</h1>
+        </div>
+        <div id="bottom">
+          <div id="week">
+            <div className="days">Sun</div>
+            <div className="days">Mon</div>
+            <div className="days">Tue</div>
+            <div className="days">Wed</div>
+            <div className="days">Thu</div>
+            <div className="days">Fri</div>
+            <div className="days">Sat</div>
+          </div>
+          <div className="rows">{this.generateColumn()}</div>
+        </div>
+        {this.renderComponents()}
       </div>
     );
   };
