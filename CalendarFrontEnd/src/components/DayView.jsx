@@ -1,19 +1,35 @@
 import React, { Component } from "react";
 
 class DayView extends Component {
-  convertWeekNames = () => {
-    // Times ((1-3) * 7 )+ 1 to stay on same week name
-    // Starts from Sunday 1st
-    //
+  // Adding week name based on the hard-coded date.
+  addWeekName = day => {
+    const week = {
+      1: "Sunday",
+      2: "Monday",
+      3: "Tuesday",
+      4: "Wednesday",
+      5: "Thursday",
+      6: "Friday",
+      7: "Saturday"
+    };
+
+    if (day > 7 && day < 15) {
+      day = day - 7;
+    } else if (day >= 15 && day < 22) {
+      day = day - 14;
+    } else if (day >= 22 && day < 29) {
+      day = day - 21;
+    }
+    return week[day];
   };
 
   //  Ordinal numbers indicator
   addDaySuffix = num => {
-    if (num == 1 && num != 11) {
+    if (num === 1 && num !== 11) {
       return `${num}st`;
-    } else if (num == 2 && num != 12) {
+    } else if (num === 2 && num !== 12) {
       return `${num}nd`;
-    } else if (num == 3 && num != 13) {
+    } else if (num === 3 && num !== 13) {
       return `${num}rd`;
     }
     return `${num}th`;
@@ -22,7 +38,6 @@ class DayView extends Component {
   appendLongEventInfo = () => {
     const savedData = [...this.props.savedData[this.props.dayId]];
     return savedData.map((e, i) => {
-      console.log(e.dayId);
       return (
         <div className="row" id={`${e.dayId}${i}`} key={`${e.dayId}${i}`}>
           <div className=" col s12 dayViewCol">
@@ -58,7 +73,9 @@ class DayView extends Component {
           key={this.props.dayId}
         >
           <span className="card-title">
-            {`${this.addDaySuffix(this.props.dayId)}`}Tuesday 8th 2018{" "}
+            {`${this.addWeekName(this.props.dayId)} ${this.addDaySuffix(
+              this.props.dayId
+            )} 2018`}
           </span>
           {this.appendLongEventInfo()}
         </div>
@@ -67,7 +84,6 @@ class DayView extends Component {
   };
 
   render() {
-    console.log(this.props);
     return (
       <div id="dayView" className="valign-wrapper row">
         {this.renderTemplate()}{" "}

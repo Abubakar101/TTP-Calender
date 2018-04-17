@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Col, Row } from "react-materialize";
 import "./App.css";
 import axios from "axios";
 
@@ -14,8 +13,8 @@ class App extends Component {
     };
   }
 
+  // Get all saved data from DB
   async componentDidMount() {
-    // Get all saved data from DB
     this.getDBInfo();
   }
 
@@ -181,7 +180,6 @@ class App extends Component {
   };
 
   render() {
-    // console.log(this.state.savedData);
     return (
       <div className="app">
         <Nav />
