@@ -154,6 +154,7 @@ class View extends Component {
               savedData={this.props.savedData}
               dayId={this.state.dayId}
               convertTime={this.convertTime}
+              deleteEvent={this.props.deleteEvent}
             />
           )}
       </div>

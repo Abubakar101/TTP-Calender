@@ -51,6 +51,13 @@ class DayView extends Component {
             <label className=" col s6 dayViewDescription">
               {e.description}
             </label>
+            <i
+            id="deleteDayViewEvent"
+            className="material-icons right"
+            onClick={e => this.props.deleteEvent(e)}
+          >
+          delete_forever
+          </i>
           </div>
         </div>
       );

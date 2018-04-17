@@ -14,17 +14,18 @@ class App extends Component {
   }
 
   // Get all saved data from DB
-  async componentDidMount() {
+  componentDidMount() {
     this.getDBInfo();
   }
 
   // Getting data from  database
   getDBInfo = async () => {
-    const savedData = [
+    const TempSavedData = [
       {
         startTime: "03:11",
         endTime: "23:59",
-        description: "1st Description..,dfjsdfhjshdf jhksdkfhadfjsdfhjs hdfjhksdkfhashsdfdfj sdfhjshdfjhksdkfhashsdfdfjsdfhjshdf jhksdkfhashsdfdfjsdfhjshdfjhk sdkfhashsdfdfjsdfhjs hdfjhksdkfhashsdfshsdf",
+        description:
+          "1st Description..,dfjsdfhjshdf jhksdkfhadfjsdfhjs hdfjhksdkfhashsdfdfj sdfhjshdfjhksdkfhashsdfdfjsdfhjshdf jhksdkfhashsdfdfjsdfhjshdfjhk sdkfhashsdfdfjsdfhjs hdfjhksdkfhashsdfshsdf",
         dayId: 3
       },
       {
@@ -60,7 +61,8 @@ class App extends Component {
       {
         startTime: "03:11",
         endTime: "23:59",
-        description: "1st Description..,dfjsdfhjshdf jhksdkfhadfjsdfhjs hdfjhksdkfhashsdfdfj sdfhjshdfjhksdkfhashsdfdfjsdfhjshdf jhksdkfhashsdfdfjsdfhjshdfjhk sdkfhashsdfdfjsdfhjs hdfjhksdkfhashsdfshsdf",
+        description:
+          "1st Description..,dfjsdfhjshdf jhksdkfhadfjsdfhjs hdfjhksdkfhashsdfdfj sdfhjshdfjhksdkfhashsdfdfjsdfhjshdf jhksdkfhashsdfdfjsdfhjshdfjhk sdkfhashsdfdfjsdfhjs hdfjhksdkfhashsdfshsdf",
         dayId: 3
       },
       {
@@ -96,7 +98,8 @@ class App extends Component {
       {
         startTime: "03:11",
         endTime: "23:59",
-        description: "1st Description..,dfjsdfhjshdf jhksdkfhadfjsdfhjs hdfjhksdkfhashsdfdfj sdfhjshdfjhksdkfhashsdfdfjsdfhjshdf jhksdkfhashsdfdfjsdfhjshdfjhk sdkfhashsdfdfjsdfhjs hdfjhksdkfhashsdfshsdf",
+        description:
+          "1st Description..,dfjsdfhjshdf jhksdkfhadfjsdfhjs hdfjhksdkfhashsdfdfj sdfhjshdfjhksdkfhashsdfdfjsdfhjshdf jhksdkfhashsdfdfjsdfhjshdfjhk sdkfhashsdfdfjsdfhjs hdfjhksdkfhashsdfshsdf",
         dayId: 3
       },
       {
@@ -136,7 +139,20 @@ class App extends Component {
         dayId: 20
       }
     ];
-    // Saving multiple same-day events into an array and then into an object
+    const savedData = await this.sameDayEvents(TempSavedData);
+    this.setState({ savedData});
+    //  //  //  //  //  //  //  //  //  //
+    // try {
+    //   const addEvent = await axios.get("/events");
+    //   const savedData = await this.sameDayEvents(addEvent.data);
+    //   this.setState({ savedData });
+    // } catch (error) {
+    //   console.log(error);
+    // }
+  };
+
+  // Saving multiple same-day events into an array and then into an object - categorize
+  sameDayEvents = async savedData => {
     const obj = {};
     for (let index in savedData) {
       if (!obj[savedData[index].dayId]) {
@@ -149,15 +165,7 @@ class App extends Component {
         obj[savedData[index].dayId] = sortedByStartTime;
       }
     }
-    this.setState({ savedData: obj });
-    // console.log(obj);
-    // try {
-    //   await axios.get("/events").then(res => {
-    //     this.setState({ savedData: res.data });
-    //   });
-    // } catch (error) {
-    //   console.log(error);
-    // }
+    return obj;
   };
 
   // Adding saved data into Database
@@ -174,6 +182,27 @@ class App extends Component {
         .then(res => {
           this.setState({ savedData: [...this.state.savedData, res.data] });
         });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // Deleting an Event from Database
+  deleteEvent = async id => {
+    try {
+      // for (let index of id) {
+      let response = await axios.delete(`/events/${id}`);
+
+      if (response.data === "OK") {
+        this.setState({
+          savedData: this.state.savedData.filter(e => e.id !== id)
+        });
+      }
+      // reloading the window when there's no more saved data
+      // if (!this.state.savedData[0]) {
+      //   window.location.reload();
+      // }
+      // }
     } catch (error) {
       console.log(error);
     }
