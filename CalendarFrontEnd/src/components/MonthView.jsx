@@ -7,6 +7,7 @@ class View extends Component {
     super(props);
     this.state = {
       showForm: false,
+      showDayView: false,
       dayId: null,
       dayView: []
     };
@@ -20,19 +21,30 @@ class View extends Component {
     console.log(event.target.id, event.target.className);
     // console.log(event.target.className === "columns");
 
-    if (event.target.className === "columns") {
+    if (event.target.className === "columns" && !this.state.showDayView) {
       this.setState({ showForm: true, dayId: event.target.id });
-      $("#top").css("opacity", "0.1");
-      $("#bottom").css("opacity", "0.1");
+      this.changeOpacity(true);
     } else if (this.state.showForm && event.target.className === "") {
       this.closeEventForm();
+    } else if (this.state.showDayView) {
+      this.closeDayView();
     }
   };
 
   closeEventForm = () => {
     this.setState({ showForm: false });
-    $("#top").css("opacity", "1");
-    $("#bottom").css("opacity", "1");
+    this.changeOpacity(false);
+  };
+
+  // For overlay form and full day events
+  changeOpacity = param => {
+    if (param) {
+      $("#top").css("opacity", "0.1");
+      $("#bottom").css("opacity", "0.1");
+    } else {
+      $("#top").css("opacity", "1");
+      $("#bottom").css("opacity", "1");
+    }
   };
 
   // Converting 24 hour to 12 hour clock
@@ -49,7 +61,7 @@ class View extends Component {
   shortDescription = text =>
     text.length > 10 ? `${text.substr(0, 10)}...` : text;
 
-  //   Generating 28 columns
+  // Generating 28 columns
   generateColumn = () => {
     let columns = [];
     for (var i = 1; i <= 28; i++) {
@@ -57,7 +69,7 @@ class View extends Component {
         this.props.savedData[i] ? (
           <div id={i} className="columns" key={i}>
             {i}
-            {this.appendEventInfo(i)}
+            {this.appendShortEventsInfo(i)}
           </div>
         ) : (
           <div id={i} className="columns" key={i}>
@@ -69,10 +81,11 @@ class View extends Component {
     return columns;
   };
 
-  // Filling up the days with events
-  appendEventInfo = index => {
+  // Filling up the columns with events
+  appendShortEventsInfo = index => {
     const moreEvents = this.props.savedData[index].length - 3;
-    const dayEvents = this.props.savedData[index].map((e, i) => {
+    const savedData = this.props.savedData[index].slice(0, 3);
+    const dayEvents = savedData.map((e, i) => {
       return (
         <div id={`${e.dayId}${i}`} key={`${e.dayId}${i}`}>
           <p className="eventShortInfo">
@@ -85,19 +98,39 @@ class View extends Component {
         </div>
       );
     });
-    // this.setStateDayEvents(dayEvents);
 
-    if (dayEvents.length > 3) {
+    if (moreEvents > 0) {
       return [
-        ...dayEvents.splice(0, 3),
-        <div className="moreEvents" key={this.uniqueID()} id={this.uniqueID()}>
+        ...dayEvents,
+        <div
+          className="moreEvents"
+          key={this.uniqueID()}
+          id={this.uniqueID()}
+          onClick={e => this.showDayView(index)}
+        >
           {moreEvents} more
         </div>
       ];
     }
-    // Show only top 3 events, otherwise only show the number of events.
-    return dayEvents.splice(0, 3);
+    return dayEvents;
   };
+
+  // appendLongEventInfo = index => {
+  //   const savedData = this.props.savedData[index];
+  //   const dayFullEvents = savedData.map((e, i) => {
+  //     return (
+  //       <div id={`${e.dayId}${i}`} key={`${e.dayId}${i}`}>
+  //         <p className="eventLongInfo">
+  //           {this.convertTime(e.startTime)}
+  //           {this.convertTime(e.endTime)}
+  //           <span className="longDescription">{e.description}</span>
+  //         </p>
+  //       </div>
+  //     );
+  //   });
+
+  //   this.setState({ dayView: dayFullEvents });
+  // };
 
   // Creating a random unique IDs
   uniqueID = () =>
@@ -107,7 +140,16 @@ class View extends Component {
       .substr(2, 9);
 
   // Setting state with all same-day events to pass down into another component
-  setStateDayEvents = dayEvents => this.setState({ dayView: dayEvents });
+
+  showDayView = dayId => {
+    this.setState({ showDayView: true, dayId });
+    this.changeOpacity(true);
+  };
+
+  closeDayView = () => {
+    this.setState({ showDayView: false });
+    this.changeOpacity(false);
+  };
 
   // Template Skeleton
   viewTemplate = () => {
@@ -129,7 +171,7 @@ class View extends Component {
           </div>
           <div className="rows">{this.generateColumn()}</div>
         </div>
-        {/*Form*/}
+        {/* Form */}
         {this.state.showForm && (
           <Form
             closeEventForm={this.closeEventForm}
@@ -137,11 +179,21 @@ class View extends Component {
             dayId={this.state.dayId}
           />
         )}
+        {/* Day View */}
+        {this.state.showDayView &&
+          !this.state.showForm && (
+            <DayView
+              closeDayView={this.closeDayView}
+              savedData={this.props.savedData}
+              dayId={this.state.dayId}
+            />
+          )}
       </div>
     );
   };
 
   render() {
+    console.log(this.state.dayView);
     return <div>{this.viewTemplate()}</div>;
   }
 }

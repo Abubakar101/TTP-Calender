@@ -61,7 +61,8 @@
   cursor: pointer;
   margin: 5px;
 }
-/* Add event Form */
+/* Add event Form & Day View*/
+
 #addEventForm {
   position: absolute;
   top: 200px;
@@ -70,12 +71,14 @@
 }
 
 .hoverable {
-  width: auto !important;
+  width: 100% !important;
   margin-left: 0px !important;
   left: auto !important;
   right: auto !important;
 }
-#closeForm {
+
+#closeForm,
+#closeDayView {
   margin-top: 10px;
   cursor: pointer;
   font-weight: 300;
@@ -89,6 +92,25 @@
   letter-spacing: 5px !important;
   font-size: 30px !important;
   text-align: center !important;
+}
+
+/* Day View */
+#dayView {
+  position: absolute;
+  top: 200px;
+  left: 200px;
+  z-index: 10;
+  width: 68%;
+  background: #5f407e;
+  max-height: 578px;
+}
+
+.dayViewCol{
+  line-height: 27px;
+
+}
+.dayViewDescription{
+  line-height: 18px;
 }
 
 /* Events Short Info*/
@@ -112,7 +134,6 @@
   font-size: 14px;
   margin: 6px;
 }
-
 
 .moreEvents:hover {
   color: rgb(56, 139, 126);

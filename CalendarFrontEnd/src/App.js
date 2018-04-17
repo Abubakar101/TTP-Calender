@@ -35,7 +35,7 @@ class App extends Component {
         dayId: 3
       },
       {
-        startTime: "03:11",
+        startTime: "03:30",
         endTime: "11:59",
         description: "2nd Description",
         dayId: 3
@@ -109,7 +109,7 @@ class App extends Component {
   };
 
   render() {
-    console.log(this.state.savedData);
+    // console.log(this.state.savedData);
     return (
       <div className="app">
         <Nav />
