@@ -189,6 +189,7 @@ class App extends Component {
 
   // Deleting an Event from Database
   deleteEvent = async id => {
+    console.log(id)
     try {
       // for (let index of id) {
       let response = await axios.delete(`/events/${id}`);
@@ -215,6 +216,7 @@ class App extends Component {
         <MonthView
           submitEventForm={this.submitEventForm}
           savedData={this.state.savedData}
+          deleteEvent={this.deleteEvent}
         />
       </div>
     );

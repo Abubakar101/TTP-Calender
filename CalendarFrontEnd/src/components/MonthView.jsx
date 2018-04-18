@@ -22,7 +22,7 @@ class View extends Component {
       this.changeOpacity(true);
     } else if (this.state.showForm && event.target.className === "") {
       this.closeEventForm();
-    } else if (this.state.showDayView) {
+    } else if (this.state.showDayView && event.target.className === "") {
       this.closeDayView();
     }
   };

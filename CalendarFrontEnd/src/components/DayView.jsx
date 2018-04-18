@@ -54,7 +54,7 @@ class DayView extends Component {
             <i
             id="deleteDayViewEvent"
             className="material-icons right"
-            onClick={e => this.props.deleteEvent(e)}
+            onClick={e => this.props.deleteEvent(e.id)}
           >
           delete_forever
           </i>
