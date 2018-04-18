@@ -2,7 +2,7 @@ import React, { Component } from "react";
 class Nav extends Component {
   render() {
     return (
-      <div className="navbar-fixed">
+      <div id="navBar" className="navbar-fixed">
         <nav className="black">
           <div className="nav-wrapper">
             {" "}
@@ -11,7 +11,7 @@ class Nav extends Component {
                 <span>Welcome,</span>
               </li>
               <li>
-                <a href="#">Human!</a>
+                <a href="/">Human!</a>
               </li>
             </ul>
           </div>

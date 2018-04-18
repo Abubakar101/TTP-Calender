@@ -80,8 +80,7 @@
 }
 
 #closeForm,
-#closeDayView,
-#deleteDayViewEvent {
+#closeDayView {
   margin-top: 10px;
   cursor: pointer;
   font-weight: 300;
@@ -109,6 +108,10 @@
   max-height: 578px;
 }
 
+#deleteDayViewEvent {
+  cursor: pointer;
+  font-weight: 300;
+}
 #deleteDayViewEvent:hover {
   color: red;
 }
