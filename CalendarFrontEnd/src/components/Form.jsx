@@ -3,9 +3,27 @@ import React, { Component } from "react";
 class Form extends Component {
   render() {
     return (
-      <div className="valign-wrapper row login-box">
-        <div className="col card hoverable s10 pull-s1 m6 pull-m3 l4 pull-l4">
-          <form onSubmit={e => this.props.submitEvent(true)}>
+      <div id="addEventForm" className="valign-wrapper row">
+        <div className="col card hoverable s7">
+          <i
+            id="closeForm"
+            className="material-icons right"
+            onClick={e => this.props.closeEventForm()}
+          >
+            close
+          </i>
+          <form
+            onSubmit={e => {
+              e.preventDefault();
+              this.props.submitEventForm(
+                e.target.startTime.value,
+                e.target.endTime.value,
+                e.target.description.value,
+                this.props.dayId
+              );
+              this.props.closeEventForm();
+            }}
+          >
             <div className="card-content">
               <span className="card-title">Add Event</span>
 
@@ -15,16 +33,18 @@ class Form extends Component {
                   <label className=" col s6">End Time </label>
                 </div>
                 <div className="input-field col s6">
-                  <i class="material-icons prefix">access_time</i>
+                  <i className="material-icons prefix">timer</i>
                   <input
                     type="time"
                     className="addEvent"
-                    name="endTime"
-                    id="endTime"
+                    name="startTime"
+                    id="startTime"
                   />
                 </div>
                 <div className="input-field col s6">
+                  <i className="material-icons prefix">timer_off</i>
                   <input
+                    max="time"
                     type="time"
                     className="addEvent"
                     name="endTime"
@@ -38,7 +58,7 @@ class Form extends Component {
                   <label className=" col s12">Description</label>
                 </div>
                 <div className="input-field col s12">
-                  <i class="material-icons prefix">description</i>
+                  <i className="material-icons prefix">description</i>
                   <input
                     type="text"
                     className="addEvent"
