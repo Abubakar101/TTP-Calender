@@ -1,8 +1,8 @@
 /* setting up dependencies */
-import express from "express";
-import logger from "morgan";
-import bodyParser from "body-parser";
-import cors from "cors";
+const express = require("express");
+const logger = require("morgan");
+const bodyParser = require("body-parser");
+const cors = require("cors");
 
 const app = express();
 
@@ -33,7 +33,7 @@ if (process.env.NODE_ENV === "production") {
 // }
 
 /* Events API route */
-import eventRoutes from "./routes/eventroutes";
+const eventRoutes = require("./routes/eventRoutes");
 app.use("/api/events", eventRoutes);
 
 /* handling 404 */
