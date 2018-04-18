@@ -1,5 +1,5 @@
-const express = require("express");
-const eventsController = require("../controllers/eventsController");
+import express from "express";
+import eventsController from "../controllers/eventsController";
 
 const eventRoutes = express.Router();
 
@@ -8,4 +8,5 @@ eventRoutes
   .get(eventsController.findAll)
   .post(eventsController.create)
   .delete(eventsController.destroy);
-module.exports = eventRoutes;
+
+export default eventRoutes;
