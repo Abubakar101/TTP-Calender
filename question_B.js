@@ -99,8 +99,8 @@ class Trie {
 	}
 }
 
-URL = new Trie();
-URL.add('google.com/contact/address/newyork/');
+URLs = new Trie();
+URLs.add('google.com/contact/address/newyork/');
 
-console.log(URL.isVisited('google.com/contact/address/newyork/'));
-console.log(URL.print());
+console.log(URLs.isVisited('google.com/contact/address/newyork/'));
+console.log(URLs.print());
