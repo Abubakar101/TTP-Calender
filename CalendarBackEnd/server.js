@@ -26,15 +26,9 @@ if (process.env.NODE_ENV === "production") {
   app.use(express.static("../CalendarFrontEnd/build"));
 }
 
-// else if (process.env.NODE_ENV === "development") {
-//   app.get("/events", function(req, res) {
-//     res.json()
-//   });
-// }
-
 /* Events API route */
 const eventRoutes = require("./routes/eventRoutes");
-app.use("/api/events", eventRoutes);
+app.use("/events", eventRoutes);
 
 /* handling 404 */
 app.get("*", function(req, res) {

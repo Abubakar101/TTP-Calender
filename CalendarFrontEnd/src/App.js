@@ -20,190 +20,69 @@ class App extends Component {
 
   // Getting data from  database
   getDBInfo = async () => {
-    const TempSavedData = [
-      {
-        startTime: "03:11",
-        endTime: "23:59",
-        description:
-          "1st Description..,dfjsdfhjshdf jhksdkfhadfjsdfhjs hdfjhksdkfhashsdfdfj sdfhjshdfjhksdkfhashsdfdfjsdfhjshdf jhksdkfhashsdfdfjsdfhjshdfjhk sdkfhashsdfdfjsdfhjs hdfjhksdkfhashsdfshsdf",
-        dayId: 3
-      },
-      {
-        startTime: "01:11",
-        endTime: "11:59",
-        description: "2nd Description",
-        dayId: 3
-      },
-      {
-        startTime: "03:30",
-        endTime: "11:59",
-        description: "2nd Description",
-        dayId: 3
-      },
-      {
-        startTime: "03:30",
-        endTime: "11:59",
-        description: "2nd Description",
-        dayId: 3
-      },
-      {
-        startTime: "04:11",
-        endTime: "11:59",
-        description: "2nd Description",
-        dayId: 3
-      },
-      {
-        startTime: "03:15",
-        endTime: "11:59",
-        description: "2nd Description",
-        dayId: 3
-      },
-      {
-        startTime: "03:11",
-        endTime: "23:59",
-        description:
-          "1st Description..,dfjsdfhjshdf jhksdkfhadfjsdfhjs hdfjhksdkfhashsdfdfj sdfhjshdfjhksdkfhashsdfdfjsdfhjshdf jhksdkfhashsdfdfjsdfhjshdfjhk sdkfhashsdfdfjsdfhjs hdfjhksdkfhashsdfshsdf",
-        dayId: 3
-      },
-      {
-        startTime: "01:11",
-        endTime: "11:59",
-        description: "2nd Description",
-        dayId: 3
-      },
-      {
-        startTime: "03:30",
-        endTime: "11:59",
-        description: "2nd Description",
-        dayId: 3
-      },
-      {
-        startTime: "03:30",
-        endTime: "11:59",
-        description: "2nd Description",
-        dayId: 3
-      },
-      {
-        startTime: "04:11",
-        endTime: "11:59",
-        description: "2nd Description",
-        dayId: 3
-      },
-      {
-        startTime: "03:15",
-        endTime: "11:59",
-        description: "2nd Description",
-        dayId: 3
-      },
-      {
-        startTime: "03:11",
-        endTime: "23:59",
-        description:
-          "1st Description..,dfjsdfhjshdf jhksdkfhadfjsdfhjs hdfjhksdkfhashsdfdfj sdfhjshdfjhksdkfhashsdfdfjsdfhjshdf jhksdkfhashsdfdfjsdfhjshdfjhk sdkfhashsdfdfjsdfhjs hdfjhksdkfhashsdfshsdf",
-        dayId: 3
-      },
-      {
-        startTime: "01:11",
-        endTime: "11:59",
-        description: "2nd Description",
-        dayId: 3
-      },
-      {
-        startTime: "03:30",
-        endTime: "11:59",
-        description: "2nd Description",
-        dayId: 3
-      },
-      {
-        startTime: "03:30",
-        endTime: "11:59",
-        description: "2nd Description",
-        dayId: 3
-      },
-      {
-        startTime: "04:11",
-        endTime: "11:59",
-        description: "2nd Description",
-        dayId: 3
-      },
-      {
-        startTime: "03:15",
-        endTime: "11:59",
-        description: "2nd Description",
-        dayId: 3
-      },
-      {
-        startTime: "12:11",
-        endTime: "23:59",
-        description: "3st Description",
-        dayId: 20
-      }
-    ];
-    const savedData = await this.sameDayEvents(TempSavedData);
-    this.setState({ savedData});
-    //  //  //  //  //  //  //  //  //  //
-    // try {
-    //   const addEvent = await axios.get("/events");
-    //   const savedData = await this.sameDayEvents(addEvent.data);
-    //   this.setState({ savedData });
-    // } catch (error) {
-    //   console.log(error);
-    // }
+    try {
+      const response = await axios.get("/events");
+      const savedData = await this.sameDayEvents(response.data.data);
+      this.setState({ savedData });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   // Saving multiple same-day events into an array and then into an object - categorize
   sameDayEvents = async savedData => {
     const obj = {};
     for (let index in savedData) {
-      if (!obj[savedData[index].dayId]) {
-        obj[savedData[index].dayId] = [savedData[index]];
+      if (!obj[savedData[index].day_id]) {
+        obj[savedData[index].day_id] = [savedData[index]];
       } else {
         let sortedByStartTime = [
-          ...obj[savedData[index].dayId],
+          ...obj[savedData[index].day_id],
           savedData[index]
-        ].sort((a, b) => b.startTime < a.startTime);
-        obj[savedData[index].dayId] = sortedByStartTime;
+        ].sort((a, b) => b.start_time < a.start_time);
+        obj[savedData[index].day_id] = sortedByStartTime;
       }
     }
     return obj;
   };
 
   // Adding saved data into Database
-  submitEventForm = async (startTime, endTime, description, dayId) => {
-    console.log(startTime, endTime, description, dayId);
+  submitEventForm = async (start_time, end_time, description, day_id) => {
     try {
-      await axios
-        .post("/events", {
-          startTime,
-          endTime,
-          description,
-          dayId
-        })
-        .then(res => {
-          this.setState({ savedData: [...this.state.savedData, res.data] });
-        });
+      const response = await axios.post("/events", {
+        start_time,
+        end_time,
+        description,
+        day_id
+      });
+
+      this.setState({
+        savedData: [...this.state.savedData, response.data.data]
+      });
     } catch (error) {
       console.log(error);
     }
   };
 
   // Deleting an Event from Database
-  deleteEvent = async id => {
-    console.log(id)
+  deleteEvent = async (id, dayId) => {
     try {
-      // for (let index of id) {
-      let response = await axios.delete(`/events/${id}`);
+      const response = await axios({
+        method: "delete",
+        url: "/events",
+        data: { id }
+      });
 
-      if (response.data === "OK") {
-        this.setState({
-          savedData: this.state.savedData.filter(e => e.id !== id)
-        });
+      // Converting Object into an array, then returning new array without the deleted value
+      // Then converting back into the object.
+      if (response.data.message === "OK") {
+        const arr = [...[this.state.savedData]];
+        const newArr = arr[0][dayId].filter(e => e.id !== id);
+        arr[0][dayId] = newArr;
+        const savedData = { ...arr[0] };
+
+        this.setState({ savedData });
       }
-      // reloading the window when there's no more saved data
-      // if (!this.state.savedData[0]) {
-      //   window.location.reload();
-      // }
-      // }
     } catch (error) {
       console.log(error);
     }

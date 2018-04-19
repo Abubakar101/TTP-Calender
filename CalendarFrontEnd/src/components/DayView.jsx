@@ -39,14 +39,14 @@ class DayView extends Component {
     const savedData = [...this.props.savedData[this.props.dayId]];
     return savedData.map((e, i) => {
       return (
-        <div className="row" id={`${e.dayId}${i}`} key={`${e.dayId}${i}`}>
+        <div className="row" id={`${e.day_id}${i}`} key={`${e.day_id}${i}`}>
           <div className=" col s12 dayViewCol">
             <i className="material-icons prefix col s1 ">access_time</i>
             <label className=" col s2">
-              {this.props.convertTime(e.startTime)}
+              {this.props.convertTime(e.start_time)}
             </label>
             <label className=" col s2">
-              {this.props.convertTime(e.endTime)}
+              {this.props.convertTime(e.end_time)}
             </label>
             <label className=" col s6 dayViewDescription">
               {e.description}
@@ -54,7 +54,7 @@ class DayView extends Component {
             <i
             id="deleteDayViewEvent"
             className="material-icons right"
-            onClick={e => this.props.deleteEvent(e.id)}
+            onClick={() => this.props.deleteEvent(e.id, this.props.dayId)}
           >
           delete_forever
           </i>

@@ -2,13 +2,13 @@ const db = require("../db/config");
 
 const event = {};
 event.findAll = () => {
-  return db.query(`SELECT * FROM events ORDER BY id desc`);
+  return db.query(`SELECT * FROM events`);
 };
 
 event.create = event => {
   return db.one(
-    `INSERT INTO events (startTime, endTime, description, dayId) VALUES ($1, $2, $3, $4) RETURNING *`,
-    [event.startTime, event.endTime, event.description, event.dayId]
+    `INSERT INTO events (start_time, end_time, description, day_id) VALUES ($1, $2, $3, $4) RETURNING *`,
+    [event.start_time, event.end_time, event.description, event.day_id]
   );
 };
 
