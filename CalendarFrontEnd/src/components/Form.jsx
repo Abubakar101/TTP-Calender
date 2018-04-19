@@ -39,6 +39,7 @@ class Form extends Component {
                     className="addEvent"
                     name="startTime"
                     id="startTime"
+                    required
                   />
                 </div>
                 <div className="input-field col s6">
@@ -49,6 +50,7 @@ class Form extends Component {
                     className="addEvent"
                     name="endTime"
                     id="endTime"
+                    required
                   />
                 </div>
               </div>
@@ -64,6 +66,7 @@ class Form extends Component {
                     className="addEvent"
                     name="description"
                     id="description"
+                    required
                   />
                 </div>
               </div>

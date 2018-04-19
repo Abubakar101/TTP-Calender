@@ -12,12 +12,6 @@ class View extends Component {
     };
   }
 
-  static getDerivedStateFromProps(nextProps, prevState) {
-    if (nextProps !== prevState) {
-      return true;
-    }
-    return null;
-  }
   componentDidMount() {
     document.body.addEventListener("click", this.showEventForm);
   }

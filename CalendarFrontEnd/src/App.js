@@ -56,9 +56,16 @@ class App extends Component {
         day_id
       });
 
-      this.setState({
-        savedData: [...this.state.savedData, response.data.data]
-      });
+      // Assigning new value into the object and then setting the state with new value
+      const savedData = { ...this.state.savedData };
+      let newArr = [];
+      if (!savedData[day_id]) {
+        savedData[day_id] = [response.data.data];
+      } else {
+        newArr = [...savedData[day_id], response.data.data];
+        savedData[day_id] = newArr;
+      }
+      this.setState({ savedData });
     } catch (error) {
       console.log(error);
     }
