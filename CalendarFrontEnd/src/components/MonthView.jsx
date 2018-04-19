@@ -12,6 +12,12 @@ class View extends Component {
     };
   }
 
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (nextProps !== prevState) {
+      return true;
+    }
+    return null;
+  }
   componentDidMount() {
     document.body.addEventListener("click", this.showEventForm);
   }
@@ -84,12 +90,12 @@ class View extends Component {
     const dayEvents = savedData.map((e, i) => {
       return (
         <div
-          id={`${e.dayId}${i}`}
-          key={`${e.dayId}${i}`}
+          id={`${e.day_id}${i}`}
+          key={`${e.day_id}${i}`}
           onClick={e => this.showDayView(index)}
         >
           <p className="eventShortInfo">
-            {this.convertTime(e.startTime)}
+            {this.convertTime(e.start_time)}
             &nbsp;&nbsp;
             <span className="shortDescription">
               {this.shortDescription(e.description)}

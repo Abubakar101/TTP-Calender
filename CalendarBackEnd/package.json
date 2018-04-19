@@ -1,0 +1,44 @@
+{
+  "name": "calendarbackend",
+  "version": "1.0.0",
+  "description": "TPP Calendar",
+  "main": "server.js",
+  "engines": {
+    "node": "8.5.0",
+    "npm": "5.8.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon server.js",
+    "start": "nodemon server.js",
+    "debugger": "DEBUG=*:* npm run dev",
+    "heroku-postbuild": "cd ../CalendarFrontEnd/ && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
+  },
+  "cacheDirectories": [
+    "node_modules",
+    "../CalendarFrontEnd/node_modules"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Abubakar101/TTP-Calender.git"
+  },
+  "keywords": [
+    "calendar",
+    "react",
+    "javascript"
+  ],
+  "author": "Muhammad Abubakar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Abubakar101/TTP-Calender/issues"
+  },
+  "homepage": "https://github.com/Abubakar101/TTP-Calender#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "cors": "^2.8.4",
+    "express": "^4.16.3",
+    "morgan": "^1.9.0",
+    "nodemon": "^1.17.3",
+    "pg-promise": "^8.4.0"
+  }
+}
