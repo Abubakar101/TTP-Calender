@@ -14,9 +14,9 @@ function countSteps(target) {
 		count = 0;
 
 	while (sums.length) {
-		let curr_sum = sums.pop();
-		if (curr_sum < target) steps.forEach(n => sums.push(curr_sum + n));
-		if (curr_sum === target) count++;
+		let currSum = sums.pop();
+		if (currSum < target) steps.forEach(n => sums.push(currSum + n));
+		if (currSum === target) count++;
 	}
 	return count;
 }
