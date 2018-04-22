@@ -1,4 +1,4 @@
-- Two algorithms questions are in the root directory named as `question_A.js` & `question_B.js`
+- Algorithms questions are in the root directory...
 ---
 ## Introduction
 - This app is a calendar and was created using React.js, Node.js, Javascript, CSS, PSQL, and Materialize CSS. 
