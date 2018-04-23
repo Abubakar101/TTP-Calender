@@ -13,3 +13,6 @@
 
 
 ### Heroku Deployed - https://ttpcalendar.herokuapp.com/
+
+#### This is how it looks
+![calendar](./assets/landing.png)
