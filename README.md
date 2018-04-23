@@ -15,4 +15,5 @@
 ### Heroku Deployed - https://ttpcalendar.herokuapp.com/
 
 #### This is how it looks
-![calendar](./assets/landing.png)
+
+<a href="https://raw.githubusercontent.com/Abubakar101/TTP-Calender/master/assets/landing.png" target="_blank">![calendar](./assets/landing.png)</a>
