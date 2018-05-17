@@ -3,14 +3,11 @@ import Form from "./Form";
 import DayView from "./DayView";
 var $ = window.$;
 class View extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      showForm: false,
-      showDayView: false,
-      dayId: null
-    };
-  }
+  state = {
+    showForm: false,
+    showDayView: false,
+    dayId: null
+  };
 
   componentDidMount() {
     document.body.addEventListener("click", this.showEventForm);

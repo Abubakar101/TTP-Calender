@@ -6,12 +6,9 @@ import Nav from "./components/Nav";
 import MonthView from "./components/MonthView";
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      savedData: {}
-    };
-  }
+  state = {
+    savedData: {}
+  };
 
   // Get all saved data from DB
   componentDidMount() {
